@@ -72,7 +72,7 @@ svec = np.array(encode_pre).reshape(1,-1)
 distance,pos = index.search(svec,k=2)
 
 df.Text.iloc[pos[0]]
-```python
+```
 
 ## Requirements
 
