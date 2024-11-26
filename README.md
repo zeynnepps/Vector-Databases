@@ -26,7 +26,7 @@ To run the example code, execute the Jupyter Notebook or integrate the following
 import pandas as pd
 df = pd.read_csv('/content/Tag.csv')
 df
-``````python
+
 import spacy
 nlp = spacy.load('en_core_web_sm')
 stop_words = nlp.Defaults.stop_words
@@ -43,23 +43,21 @@ def preprocess(text):
 df['Processed Text'] = df['Text'].apply(preprocess)
 
 df
-``````python
+
 from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 df['Embedding'] = df['Processed Text'].apply(model.encode)
 
 vector = model.encode(df['Processed Text'])
-```
-``````python
+
 dim = vector.shape[1]
 
 import faiss
 index = faiss.IndexFlatL2(dim)
 
 index.add(vector)
-```
-``````python
+
 search_query = 'I like eating cauliflower'
 test_pre = preprocess(search_query)
 encode_pre = model.encode(test_pre)
@@ -74,7 +72,7 @@ svec = np.array(encode_pre).reshape(1,-1)
 distance,pos = index.search(svec,k=2)
 
 df.Text.iloc[pos[0]]
-```
+```python
 
 ## Requirements
 
